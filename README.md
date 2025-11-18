@@ -141,3 +141,36 @@ terraform {
 
   required_version = ">= 1.2.0"
 }
+provider "aws" {
+  region = "ap-south-1"   # Replace with your desired AWS region
+}
+
+resource "aws_instance" "app_server" {
+  ami           = "ami-0f5ee92e2d63afc18"   # Replace with your desired AMI ID
+  instance_type = "t2.micro"
+
+  tags = {
+    Name = "AppServerInstance"
+  }
+}
+```
+
+### **Destroying Resources**
+
+In addition to provisioning and updating infrastructure, Terraform also provides a straightforward way to destroy resources when they are no longer needed. This ensures that you only pay for the resources you actually require.
+
+To destroy the resources created by Terraform, open your terminal, navigate to the project directory, and run the following command:
+
+```bash
+terraform destroy
+```
+
+Terraform will generate a plan that outlines the resources to be destroyed. Review the plan carefully, as the destroy operation is irreversible.
+
+If the plan looks correct, Terraform will prompt for confirmation. Enter "yes" to proceed with the destruction of the resources. Terraform will then tear down the infrastructure provisioned earlier, including the EC2 instance in our example.
+
+It's important to exercise caution when using the `destroy` command, as it permanently removes resources from your AWS account. Ensure that you have a backup or a way to restore any critical data before proceeding.
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1688798776250/8ac11777-a168-4dc9-998a-7226ab68e11a.png)
+
+By leveraging the power of Terraform, you can easily manage the lifecycle of your AWS infrastructure, including creation, modification, and destruction of resources, all in a controlled and automated manner.
